@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - VPBot</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="dashboard-sidebar">
+    <div class="logo" style="margin-bottom:28px;">VP<span class="dot">Bot</span></div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Tổng quan
+      </a>
+      <a href="#" onclick="document.getElementById('boxes-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+        Box của tôi
+      </a>
+      <a href="scoring.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+        Tính điểm FF
+      </a>
+      <a href="pricing.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Gia hạn / Nâng cấp
+      </a>
+      <div class="group-label">Tài khoản</div>
+      <a href="#" onclick="document.getElementById('profile-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Hồ sơ &amp; bảo mật
+      </a>
+      <a href="#" onclick="document.getElementById('payments-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Lịch sử thanh toán
+      </a>
+      <a href="#" class="logout-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+        Đăng xuất
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="dashboard-main">
+    <div class="dashboard-topbar">
+      <div>
+        <h3>Xin chào 👋</h3>
+        <p style="font-size:14px;">Đây là tổng quan tài khoản của bạn</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="theme-toggle"></button>
+        <span class="badge badge-info" id="current-plan-name">—</span>
+        <span class="badge" id="plan-expiry-badge">—</span>
+      </div>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="grid-4" style="margin-bottom:32px;" id="dashboard-overview">
+      <div class="card stat-card">
+        <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg></div>
+        <div><div class="stat-value" id="total-boxes-count">0</div><div class="stat-label">Box đang thuê</div></div>
+      </div>
+      <div class="card stat-card">
+        <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+        <div><div class="stat-value" id="total-kicked-count">0</div><div class="stat-label">Thành viên bị kick</div></div>
+      </div>
+      <div class="card stat-card">
+        <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div><div class="stat-value" id="total-messages-count">0</div><div class="stat-label">Tin nhắn đã xử lý</div></div>
+      </div>
+      <div class="card stat-card">
+        <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><div class="stat-value" id="current-plan-expiry">—</div><div class="stat-label">Ngày hết hạn</div></div>
+      </div>
+    </div>
+
+    <!-- Boxes -->
+    <div class="flex justify-between items-center" style="margin-bottom:16px;" id="boxes-section">
+      <h4>Box đã kết nối</h4>
+      <button class="btn btn-primary btn-sm" id="open-connect-box-modal-main">+ Kết nối box mới</button>
+    </div>
+    <div class="grid-3" id="user-boxes-list" style="margin-bottom:40px;"></div>
+
+    <!-- Profile -->
+    <h4 style="margin-bottom:16px;" id="profile-section">Hồ sơ &amp; bảo mật</h4>
+    <div class="grid-2" style="margin-bottom:40px;">
+      <div class="card">
+        <h5 style="margin-bottom:16px;">Thông tin cá nhân</h5>
+        <form id="profile-form">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" id="profile-username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ảnh đại diện (URL)</label>
+            <input type="text" class="form-control" id="profile-avatar-url" placeholder="https://...">
+          </div>
+          <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </form>
+      </div>
+      <div class="card">
+        <h5 style="margin-bottom:16px;">Đổi mật khẩu</h5>
+        <form id="change-password-form">
+          <div class="form-group">
+            <label class="form-label">Mật khẩu hiện tại</label>
+            <input type="password" class="form-control" id="current-password" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu mới</label>
+            <input type="password" class="form-control" id="new-password" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Xác nhận mật khẩu mới</label>
+            <input type="password" class="form-control" id="confirm-new-password" required>
+          </div>
+          <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+            <button type="button" class="btn btn-outline" id="logout-all-devices-btn">Đăng xuất mọi thiết bị</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Payments -->
+    <h4 style="margin-bottom:16px;" id="payments-section">Lịch sử thanh toán</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Gói</th><th>Số tiền</th><th>Trạng thái</th><th>Ngày</th></tr></thead>
+        <tbody id="payment-history-tbody">
+          <tr><td colspan="4" class="text-center">Đang tải...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

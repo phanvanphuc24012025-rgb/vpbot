@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chi tiết bài viết - VPBot</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo">VP<span class="dot">Bot</span></a>
+    <nav class="nav-menu">
+      <a href="index.html">Trang chủ</a>
+      <a href="pricing.html">Bảng giá</a>
+      <a href="scoring.html">Tính điểm FF</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="contact.html">Liên hệ</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle"></button>
+      <a href="login.html" class="btn btn-ghost btn-sm">Đăng nhập</a>
+      <button class="btn-icon mobile-menu-btn">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container blog-detail" style="max-width:760px;">
+    <a href="blog.html" style="font-size:14px;color:var(--color-text-muted);">← Về Blog</a>
+    <div id="blog-detail-content" style="margin-top:20px;">
+      <div class="skeleton" style="height:32px;width:70%;margin-bottom:12px;"></div>
+      <div class="skeleton" style="height:16px;width:40%;margin-bottom:24px;"></div>
+      <div class="skeleton" style="aspect-ratio:16/9;margin-bottom:24px;"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row" style="width:80%;"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom"><span>© 2026 VPBot. Bảo lưu mọi quyền.</span></div>
+  </div>
+</footer>
+
+<script src="js/utils.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script>
+async function loadBlogDetail() {
+  const slug = getQueryParam('slug');
+  const container = $('#blog-detail-content');
+  if (!slug) {
+    container.innerHTML = '<p>Không tìm thấy bài viết.</p>';
+    return;
+  }
+  try {
+    const data = await Api.getBlogPost(slug);
+    const post = data.post;
+    document.title = `${post.title} - VPBot`;
+    container.innerHTML = `
+      <h1>${escapeHtml(post.title)}</h1>
+      <div class="meta">${formatDateTime(post.createdAt)}</div>
+      ${post.coverImage ? `<img src="${post.coverImage}" alt="${escapeHtml(post.title)}" style="border-radius:12px;margin:20px 0;">` : ''}
+      <div class="content">${post.content.split('\n').map(p => `<p>${escapeHtml(p)}</p>`).join('')}</div>
+    `;
+  } catch (err) {
+    container.innerHTML = `<p>Không tải được bài viết: ${escapeHtml(err.message)}</p>`;
+  }
+}
+document.addEventListener('DOMContentLoaded', loadBlogDetail);
+</script>
+</body>
+</html>

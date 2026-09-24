@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng nhập - VPBot</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<div class="auth-wrap">
+  <div class="auth-visual">
+    <div>
+      <div class="logo" style="font-size:32px;margin-bottom:16px;">VP<span class="dot" style="color:#fff;opacity:0.7;">Bot</span></div>
+      <h2 style="color:#fff;margin-bottom:12px;">Chào mừng trở lại!</h2>
+      <p style="color:rgba(255,255,255,0.85);">Đăng nhập để quản lý box và theo dõi bảng xếp hạng giải đấu.</p>
+    </div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <a href="index.html" style="font-size:14px;color:var(--color-text-muted);">← Về trang chủ</a>
+      <h3 style="margin:16px 0 6px;">Đăng nhập</h3>
+      <p style="margin-bottom:24px;">Nhập thông tin để truy cập dashboard của bạn.</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label class="form-label">Email hoặc Username</label>
+          <input type="text" class="form-control" id="login-identifier" placeholder="email@example.com" required>
+        </div>
+        <div class="form-group">
+          <div class="flex justify-between">
+            <label class="form-label">Mật khẩu</label>
+            <a href="forgot-password.html" style="font-size:13px;color:var(--color-primary);">Quên mật khẩu?</a>
+          </div>
+          <input type="password" class="form-control" id="login-password" placeholder="Nhập mật khẩu" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Đăng nhập</button>
+      </form>
+
+      <div class="flex items-center gap-3" style="margin:20px 0;">
+        <div style="flex:1;height:1px;background:var(--color-border);"></div>
+        <span style="font-size:13px;color:var(--color-text-light);">hoặc</span>
+        <div style="flex:1;height:1px;background:var(--color-border);"></div>
+      </div>
+
+      <button type="button" class="btn btn-outline btn-block" id="google-login-btn">
+        Đăng nhập với Google
+      </button>
+
+      <p style="text-align:center;margin-top:24px;font-size:14px;">
+        Chưa có tài khoản? <a href="register.html" style="color:var(--color-primary);font-weight:600;">Đăng ký ngay</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>redirectIfAuthed();</script>
+</body>
+</html>

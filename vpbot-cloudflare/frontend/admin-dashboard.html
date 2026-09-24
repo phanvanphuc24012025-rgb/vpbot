@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản trị - VPBot Admin</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<div class="dashboard-layout admin-layout">
+  <aside class="dashboard-sidebar">
+    <div class="logo" style="margin-bottom:28px;">VP<span class="dot">Bot</span> <span class="badge badge-info">Admin</span></div>
+    <nav class="sidebar-nav">
+      <a href="#" onclick="document.getElementById('users-section').scrollIntoView({behavior:'smooth'});return false;" class="active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Người dùng
+      </a>
+      <a href="#" onclick="document.getElementById('orders-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Đơn thuê bot
+      </a>
+      <a href="#" onclick="document.getElementById('revenue-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+        Doanh thu
+      </a>
+      <a href="#" onclick="document.getElementById('vouchers-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41L11 22H2v-9L11 3.41 20.59 13.41z"/></svg>
+        Mã giảm giá
+      </a>
+      <div class="group-label">Nội dung</div>
+      <a href="#" onclick="document.getElementById('blog-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Quản lý blog
+      </a>
+      <a href="#" onclick="document.getElementById('notif-section').scrollIntoView({behavior:'smooth'});return false;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Thông báo
+      </a>
+      <a href="dashboard.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Về dashboard
+      </a>
+      <a href="#" class="logout-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+        Đăng xuất
+      </a>
+    </nav>
+  </aside>
+
+  <main class="dashboard-main">
+    <div class="dashboard-topbar">
+      <div><h3>Trang quản trị</h3><p style="font-size:14px;">Quản lý toàn bộ hệ thống VPBot</p></div>
+      <button class="theme-toggle"></button>
+    </div>
+
+    <!-- Users -->
+    <div class="flex justify-between items-center" style="margin-bottom:16px;" id="users-section">
+      <h4>Quản lý người dùng</h4>
+      <input type="text" class="form-control" id="admin-user-search" placeholder="Tìm theo username/email..." style="width:260px;">
+    </div>
+    <div class="table-wrap" style="margin-bottom:40px;">
+      <table>
+        <thead><tr><th>Username</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th><th>Ngày tạo</th><th>Thao tác</th></tr></thead>
+        <tbody id="admin-users-tbody"><tr><td colspan="6" class="text-center">Đang tải...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- Orders -->
+    <div class="flex justify-between items-center" style="margin-bottom:16px;" id="orders-section">
+      <h4>Duyệt đơn thuê bot</h4>
+      <select class="form-control" id="admin-order-filter" style="width:180px;">
+        <option value="">Tất cả</option>
+        <option value="pending">Chờ duyệt</option>
+        <option value="paid">Đã thanh toán</option>
+        <option value="failed">Thất bại</option>
+      </select>
+    </div>
+    <div class="table-wrap" style="margin-bottom:40px;">
+      <table>
+        <thead><tr><th>Khách hàng</th><th>Gói</th><th>Số tiền</th><th>Trạng thái</th><th>Ngày</th><th>Thao tác</th></tr></thead>
+        <tbody id="admin-orders-tbody"><tr><td colspan="6" class="text-center">Đang tải...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- Revenue -->
+    <div class="flex justify-between items-center" style="margin-bottom:16px;" id="revenue-section">
+      <h4>Thống kê doanh thu</h4>
+      <select class="form-control" id="revenue-range" style="width:160px;">
+        <option value="week">7 ngày qua</option>
+        <option value="month">30 ngày qua</option>
+        <option value="year">12 tháng qua</option>
+      </select>
+    </div>
+    <div class="grid-3" style="margin-bottom:16px;">
+      <div class="card stat-card"><div><div class="stat-value" id="revenue-total">0đ</div><div class="stat-label">Tổng doanh thu</div></div></div>
+      <div class="card stat-card"><div><div class="stat-value" id="revenue-orders-count">0</div><div class="stat-label">Số đơn hàng</div></div></div>
+      <div class="card stat-card"><div><div class="stat-value" id="revenue-new-users">0</div><div class="stat-label">User mới</div></div></div>
+    </div>
+    <div class="revenue-chart-wrap" style="margin-bottom:40px;" id="revenue-chart"></div>
+
+    <!-- Vouchers -->
+    <h4 style="margin-bottom:16px;" id="vouchers-section">Mã giảm giá</h4>
+    <div class="grid-2" style="margin-bottom:40px;align-items:start;">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mã</th><th>Giá trị</th><th>Đã dùng</th><th>Hết hạn</th><th>Trạng thái</th></tr></thead>
+          <tbody id="admin-vouchers-tbody"><tr><td colspan="5" class="text-center">Đang tải...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h5 style="margin-bottom:16px;">Tạo mã mới</h5>
+        <form id="create-voucher-form">
+          <div class="form-group"><label class="form-label">Mã voucher</label><input type="text" class="form-control" id="voucher-code" required></div>
+          <div class="grid-2">
+            <div class="form-group"><label class="form-label">Loại</label>
+              <select class="form-control" id="voucher-type"><option value="percent">Phần trăm (%)</option><option value="fixed">Số tiền cố định</option></select>
+            </div>
+            <div class="form-group"><label class="form-label">Giá trị</label><input type="number" class="form-control" id="voucher-value" required></div>
+          </div>
+          <div class="form-group"><label class="form-label">Số lượt dùng tối đa</label><input type="number" class="form-control" id="voucher-max-uses" placeholder="Để trống = không giới hạn"></div>
+          <button type="submit" class="btn btn-primary btn-block">Tạo mã</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Blog -->
+    <h4 style="margin-bottom:16px;" id="blog-section">Quản lý blog</h4>
+    <div class="card" style="margin-bottom:40px;">
+      <form id="admin-blog-form">
+        <div class="grid-2">
+          <div class="form-group"><label class="form-label">Tiêu đề</label><input type="text" class="form-control" id="blog-title" required></div>
+          <div class="form-group"><label class="form-label">Slug (URL)</label><input type="text" class="form-control" id="blog-slug" required></div>
+        </div>
+        <div class="form-group"><label class="form-label">Ảnh bìa (URL)</label><input type="text" class="form-control" id="blog-cover"></div>
+        <div class="form-group"><label class="form-label">Mô tả ngắn</label><input type="text" class="form-control" id="blog-excerpt"></div>
+        <div class="form-group"><label class="form-label">Nội dung</label><textarea class="form-control" id="blog-content" rows="6" required></textarea></div>
+        <button type="submit" class="btn btn-primary">Đăng bài</button>
+      </form>
+    </div>
+
+    <!-- Notifications -->
+    <h4 style="margin-bottom:16px;" id="notif-section">Gửi thông báo hệ thống</h4>
+    <div class="card">
+      <form id="admin-notification-form">
+        <div class="form-group"><label class="form-label">Tiêu đề</label><input type="text" class="form-control" id="notif-title" required></div>
+        <div class="form-group"><label class="form-label">Nội dung</label><textarea class="form-control" id="notif-message" rows="3" required></textarea></div>
+        <div class="form-group"><label class="form-label">Gửi đến</label>
+          <select class="form-control" id="notif-target">
+            <option value="all">Tất cả người dùng</option>
+            <option value="active">Người dùng đang có gói active</option>
+            <option value="expired">Người dùng hết hạn</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Gửi thông báo</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
